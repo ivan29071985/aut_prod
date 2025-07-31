@@ -3,20 +3,23 @@
 
 describe('Overbooking', () => {
     beforeEach(() => {
-        cy.visit('/')
-        cy.loginIvan()
-        //cy.clearAllCookies()
-        //cy.setupAndLogin(); // Usa o comando customizado
+        cy.clearAllCookies()
+        cy.setupAndLogin();
+        //cy.visit('/')
+        //cy.loginIvan()
     })
 
-    it('Validar abertura da grade com Overbooking 14', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+    it('Validar abertura da grade com Overbooking sem acolhimento 14', () => {
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
         cy.contains('button', 'Incluir').click()
@@ -46,9 +49,9 @@ describe('Overbooking', () => {
         cy.get('#horaFinal').type('18:00')
         cy.contains('div', 'Áreas de atuação').click()
         cy.wait(1000)
-        cy.contains('span', ' Área de Atuação - Teste Automação ').click()
+        cy.contains('span', ' Dermatologia ').click()
         cy.contains('div', 'Limitar procedimentos realizados no período').click()
-        cy.contains('span', ' Consulta Áreas de Atuação ').click()
+        cy.contains('span', ' Todos ').click()
         cy.get('#overbooking_checkbox').click()
         cy.contains('p', 'Será adicionado mais 30% de slots para atendimento.').should('be.visible')
         cy.contains('button', ' Confirmar ').click({ force: true })
@@ -58,14 +61,17 @@ describe('Overbooking', () => {
         cy.contains('button', 'Ok').click()
     })
 
-    it('Validar abertura da grade com acolhimento e overbooking 15', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+    it('Validar abertura da grade com Overbooking e com acolhimento 15', () => {
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
         cy.contains('button', 'Incluir').click()
@@ -95,9 +101,9 @@ describe('Overbooking', () => {
         cy.get('#horaFinal').type('12:00')
         cy.contains('div', 'Áreas de atuação').click()
         cy.wait(1000)
-        cy.contains('span', ' Área de Atuação - Teste Automação ').click()
+        cy.contains('span', ' Dermatologia ').click()
         cy.contains('div', 'Limitar procedimentos realizados no período').click()
-        cy.contains('span', ' Consulta Áreas de Atuação ').click()
+        cy.contains('span', ' Todos ').click()
         cy.contains('span', ' Necessita acolhimento ').click()
         cy.get('#overbooking_checkbox').click()
         cy.contains('p', 'Será adicionado mais 30% de slots para atendimento.').should('be.visible')
@@ -109,13 +115,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar abertura da grade com Overbooking em duplicidade 16', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
         cy.contains('button', 'Incluir').click()
@@ -145,9 +154,11 @@ describe('Overbooking', () => {
         cy.get('#horaFinal').type('18:00')
         cy.contains('div', 'Áreas de atuação').click()
         cy.wait(1000)
-        cy.contains('span', ' Área de Atuação - Teste Automação ').click()
+        cy.contains('span', ' Dermatologia ').click()
+        cy.wait(2000)
         cy.contains('div', 'Limitar procedimentos realizados no período').click()
-        cy.contains('span', ' Consulta Áreas de Atuação ').click()
+        cy.wait(2000)
+        cy.contains('span', ' Todos ').click()
         cy.get('#overbooking_checkbox').click()
         cy.contains('p', 'Será adicionado mais 30% de slots para atendimento.').should('be.visible')
         cy.contains('button', ' Confirmar ').click({ force: true })
@@ -157,13 +168,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar edição da grade do profissional com Overbooking 17', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -202,13 +216,16 @@ describe('Overbooking', () => {
 
         const horaInicial = '17:30'
         const horaFinal = '18:00'
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -278,13 +295,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar fluxo para edição do bloqueio da agenda com Overbooking 19', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -303,14 +323,41 @@ describe('Overbooking', () => {
             .click()
     })
 
+    it('Validar exclusão do bloqueio da agenda do profissional 22', () => {
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        //cy.wait(2000)
+
+        cy.get('#register').click()
+        cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
+        cy.contains('span', 'edit').click()
+        cy.contains('span', 'Horários de atendimento').click()
+        cy.wait(5000)
+        cy.contains('button', ' close ')
+            .click()
+        cy.wait(3000)
+        cy.contains('h2', 'Bloqueio deletado com sucesso')
+            .should('be.visible')
+        cy.contains('button', 'Ok')
+            .click()
+    })
+
     it('Validar a exclusão da grade do profissional 20', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -347,13 +394,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar a exclusão da grade do profissional 21', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -388,35 +438,17 @@ describe('Overbooking', () => {
         }
     })
 
-    it('Validar a exclusão do bloqueio da agenda do profissional 22', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+    it('Validar abertura de grade com Overbooking com intervalo de 1 hora 23', () => {                                                                                                                                                                                                                                                                                                                                                                                                                             
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
-
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
-        cy.contains('span', 'edit').click()
-        cy.contains('span', 'Horários de atendimento').click()
-        cy.wait(5000)
-        cy.contains('button', ' close ')
-            .click()
         cy.wait(3000)
-        cy.contains('h2', 'Bloqueio deletado com sucesso')
-            .should('be.visible')
-        cy.contains('button', 'Ok')
-            .click()
-    })
-
-    it('Validar abertura de grade com Overbooking com intervalo de 1 hora 23', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
-        //cy.wait(2000)
-        cy.get('#register').click()
-        cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
         cy.contains('button', 'Incluir').click()
@@ -442,13 +474,15 @@ describe('Overbooking', () => {
             throw new Error('Não foi possível determinar o checkbox correspondente ao dia da semana atual.');
         }
 
-        cy.get('#horaInicial').type('19:00')
-        cy.get('#horaFinal').type('20:00')
+        cy.get('#horaInicial').type('22:00')
+        cy.get('#horaFinal').type('23:00')
         cy.contains('div', 'Áreas de atuação').click()
-        cy.wait(1000)
-        cy.contains('span', ' Área de Atuação - Teste Automação ').click()
+        cy.wait(2000)
+        cy.contains('span', ' Dermatologia ').click()
+        cy.wait(2000)
         cy.contains('div', 'Limitar procedimentos realizados no período').click()
-        cy.contains('span', ' Consulta Áreas de Atuação ').click()
+        cy.wait(2000)
+        cy.contains('span', ' Todos ').click()
         cy.get('#overbooking_checkbox').click()
         cy.contains('p', 'Será adicionado mais 30% de slots para atendimento.').should('be.visible')
         cy.contains('button', ' Confirmar ').click({ force: true })
@@ -458,10 +492,10 @@ describe('Overbooking', () => {
         cy.contains('button', 'Ok').click()
     })
 
-    Cypress._.times(8, (index) => {
-        it(`Validar distribuição percentual de slots com Overbooking conforme horário da grade com intervalo de 1 hora 24 ${index + 1}`, () => {
-            //const baseUrl = Cypress.env('currentBaseUrl');
-            //cy.visit(baseUrl);
+    Cypress._.times(8, (index) => { //ajustar daqui
+        it.only(`Validar distribuição percentual de slots com Overbooking conforme horário da grade com intervalo de 1 hora 24 ${index + 1}`, () => {
+            const baseUrl = Cypress.env('currentBaseUrl');
+            cy.visit(baseUrl);
             //cy.wait(3000); // Esperar carregamento inicial da página
 
             cy.get('#schedule').click()
@@ -470,9 +504,9 @@ describe('Overbooking', () => {
             cy.wait(2000)
             cy.get('[formcontrolname="expertiseAreas"]').should('be.visible').click();
             cy.wait(2000); // Esperar que a lista de opções seja exibida
-            cy.xpath("//span[@class='mat-option-text'][contains(.,' Área de Atuação - Teste Automação ')]").click({ force: true });
+            cy.xpath("//span[@class='mat-option-text'][contains(.,' Dermatologia ')]").click({ force: true });
             cy.get('mat-select[formcontrolname="professionals"]').should('be.visible').click();
-            cy.xpath("//span[contains(.,'Dr. Ivan Barros')]").click({ force: true });
+            cy.xpath("//span[contains(.,' Dr. Marcella Ferreira Pasqualete ')]").click({ force: true });
             cy.wait(2000); // Esperar após selecionar profissional
 
             cy.xpath("//button[contains(.,'Pesquisar')]").should('be.visible').click();
@@ -490,7 +524,7 @@ describe('Overbooking', () => {
                 .then(($column) => {
                     const slot = $column.find('.livre').first().length
                         ? $column.find('.livre').first()
-                        : $column.find('.overbooking').first();
+                        : $column.find('.overbooking');
 
                     if (slot.length) {
                         cy.wrap(slot)
@@ -499,8 +533,8 @@ describe('Overbooking', () => {
 
                         // Fluxo de agendamento
                         cy.wait(3000);
-                        cy.get('#cpf').type('121.685.156-54')
-                        cy.wait(2000)
+                        cy.get('#cpf').type('34921977879').tab()
+                        cy.wait(5000)
                         cy.contains('button', '+ Incluir procedimento').click();
                         cy.get('mat-select[id="AdProcedimento"]').click();
                         cy.contains('span', 'Consulta Áreas de Atuação').click();
@@ -519,12 +553,11 @@ describe('Overbooking', () => {
 
     Cypress._.times(8, (index) => {
         it(`Validar liberação de Slot ao desmarcar agendamento 25 ${index + 1}`, () => {
-            //const baseUrl = Cypress.env('currentBaseUrl');
-            //cy.visit(baseUrl);
-            //cy.wait(2000)
+            const baseUrl = Cypress.env('currentBaseUrl');
+            cy.visit(baseUrl);
             cy.get('#schedule')
                 .click()
-            cy.contains('span', 'Confirmar agendamento')
+            cy.get('span').contains('Confirmar agendamento')
                 .click()
             cy.get('button span')
                 .contains('Pesquisar')
@@ -533,7 +566,7 @@ describe('Overbooking', () => {
                 .click({ timeout: 5000 })
             cy.get('mat-option').contains('50')
                 .click()
-            cy.contains('tr', 'Paulo J Rick').within(() => {
+            cy.contains('tr', 'Ivan Barros').within(() => {
                 cy.get('button')
                     .click()
             })
@@ -552,13 +585,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar a exclusão da grade do profissional 26', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 
@@ -595,13 +631,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar abertura de grade com Overbooking com intervalo de 2 horas 27', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
         cy.contains('button', 'Incluir').click()
@@ -643,8 +682,8 @@ describe('Overbooking', () => {
 
     Cypress._.times(16, (index) => {
         it(`Validar distribuição percentual de slots com Overbooking conforme horário da grade com intervalo de 2 hora 28 ${index + 1}`, () => {
-            //const baseUrl = Cypress.env('currentBaseUrl');
-            //cy.visit(baseUrl);
+            const baseUrl = Cypress.env('currentBaseUrl');
+            cy.visit(baseUrl);
             //cy.wait(3000); // Esperar carregamento inicial da página
 
             cy.get('#schedule').click()
@@ -678,30 +717,23 @@ describe('Overbooking', () => {
                     if (slot.length) {
                         cy.wrap(slot)
                             .should('be.visible')
-                            .click();
+                            .click()
 
                         // Fluxo de agendamento
                         cy.wait(3000);
-                        cy.get('#cpf')
-                            .type('121.685.156-54')
-                            .should('have.value', '121.685.156-54');
-
-                        cy.wait(3000);
+                        cy.get('#cpf').type('349.219.778-79').tab()
+                        cy.wait(5000)
                         cy.contains('button', '+ Incluir procedimento').click();
                         cy.get('mat-select[id="AdProcedimento"]').click();
                         cy.contains('span', 'Consulta Áreas de Atuação').click();
-
-                        cy.wait(2000);
                         cy.contains('button', 'Adicionar').click();
-
-                        cy.wait(2000);
                         cy.contains('button', 'Confirmar').click();
 
-                        cy.wait(2000);
+                        // Confirmar sucesso e fechar
                         cy.contains('h2', 'Agendamento criado com sucesso').should('be.visible');
                         cy.contains('button', 'Ok').click();
-                    } else {
-                        throw new Error('Nenhum slot livre ou overbooking disponível para agendamento.');
+
+                        cy.wait(2000); // Aguarde antes de tentar o próximo
                     }
                 })
         })
@@ -709,12 +741,12 @@ describe('Overbooking', () => {
 
     Cypress._.times(16, (index) => {
         it(`Validar liberação de Slot ao desmarcar agendamento 29 ${index + 1}`, () => {
-            //const baseUrl = Cypress.env('currentBaseUrl');
-            //cy.visit(baseUrl);
+            const baseUrl = Cypress.env('currentBaseUrl');
+            cy.visit(baseUrl);
             //cy.wait(2000)
             cy.get('#schedule')
                 .click()
-            cy.contains('span', 'Confirmar agendamento')
+            cy.get('span').contains('Confirmar agendamento')
                 .click()
             cy.get('button span')
                 .contains('Pesquisar')
@@ -723,7 +755,7 @@ describe('Overbooking', () => {
                 .click({ timeout: 5000 })
             cy.get('mat-option').contains('50')
                 .click()
-            cy.contains('tr', 'Paulo J Rick').within(() => {
+            cy.contains('tr', 'Ivan Barros').within(() => {
                 cy.get('button')
                     .click()
             })
@@ -742,13 +774,16 @@ describe('Overbooking', () => {
     })
 
     it('Validar a exclusão da grade do profissional 30', () => {
-        //const baseUrl = Cypress.env('currentBaseUrl');
-        //cy.visit(baseUrl);
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
         //cy.wait(2000)
         cy.get('#register').click()
         cy.contains('span', 'Lista de profissionais', { timeout: 30000 }).click()
-        cy.wait(2000)
-        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('322.354.320-18{enter}', { timeout: 20000 })
+        cy.wait(3000)
+        cy.contains('div', 'Procure por CPF ou nome', { timeout: 20000 }).type('437.020.698-79{enter}', {
+            delay: 200, // milliseconds entre cada caractere
+            timeout: 20000
+        })
         cy.contains('span', 'edit').click()
         cy.contains('span', 'Horários de atendimento').click()
 

@@ -1,0 +1,74 @@
+/// <reference types= "cypress" /> 
+/// <reference types="cypress-xpath" />
+
+describe('Tela Saldo', () => {
+    beforeEach(() => {
+        cy.clearAllCookies()
+        cy.setupAndLogin();
+        //cy.visit('/')
+        //cy.loginIvan()
+    });
+
+    it('Validar Breadcrumb Home', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar Breadcrumb Financeiro', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar Breadcrumb Saldo', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar Titulo Saldo Financeiro', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar Titulo Saldo Geral', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar Input de Data', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+
+    it('Validar somatória de Valores', () => {
+        const environment = Cypress.env('environment');
+        const baseUrl = Cypress.env('currentBaseUrl');
+        cy.visit(baseUrl);
+        cy.get('#financial').click();
+        cy.contains('span', 'Saldo').click();
+        // Código do teste
+    });
+});

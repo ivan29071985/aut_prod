@@ -1,0 +1,74 @@
+describe('Menu Financeiro', () => {
+
+  beforeEach(() => {
+    cy.setupAndLogin();
+  });
+
+  it('validar menu: saldo', () => {
+    const environment = Cypress.env('environment');
+    const baseUrl = Cypress.env('currentBaseUrl');
+
+    // mais facil para que o Brenno entenda
+    const envUrls = {
+      'homologacao': '/financial/balance',
+      'staging': '/financial/balance',
+      'producao': '/financial/balance'
+    };
+
+    cy.visit(baseUrl);
+    cy.get('#financial').click();
+    cy.contains('span', 'Saldo').click();
+
+    cy.url().should('include', envUrls[environment]);
+    cy.contains('Saldo').should('be.visible');
+    cy.log(`✅ Menu saldo validado no ambiente: ${environment}`);
+  });
+
+  it.only('validar menu: extrato', () => {
+const environment = Cypress.env('environment');
+const baseUrl = Cypress.env('currentBaseUrl');
+
+// mais facil para que o Brenno entenda
+const paths = {
+  'homologacao': '/financial/resume-financial',
+  'staging': 'amel-staging.amorsaude.com.br/financial/resume-financial',
+  'producao': 'amel.amorsaude.com.br/financial/resume-financial'
+};
+
+cy.visit(baseUrl);
+cy.get('#financial').click();
+cy.contains('span', 'Extrato').click();
+
+cy.log(environment);
+
+if (environment === 'homologacao') {
+  cy.url({timeout:15000}).should('include', '/financial/resume-financial');
+} else if (environment === 'staging') {
+  cy.url({timeout:15000}).should('include', '/financial/resume-financial');
+} else if (environment === 'producao') {
+  cy.url({timeout:15000}).should('include', '/financial/resume-financial');
+}
+  });
+
+  it('validar menu: contas a pagar', () => {
+    const environment = Cypress.env('environment');
+    const baseUrl = Cypress.env('currentBaseUrl');
+
+    // mais facil para que o Brenno entenda
+    const envUrls = {
+      'homologacao': 'amei-homolog.amorsaude.com.br/financial/bills',
+      'staging': 'amei-staging.amorsaude.com.br/financial/bills',
+      'producao': 'amei.amorsaude.com.br/financial/bills'
+    };
+
+    cy.visit(baseUrl);
+    cy.get('#financial').click();
+    cy.contains('span', 'Contas a pagar').click();
+
+    cy.url().should('include', envUrls[environment]);
+    cy.contains('Contas a pagar').should('be.visible');
+    cy.log(`✅ Menu contas a pagar validado no ambiente: ${environment}`);
+
+  });
+
+});
